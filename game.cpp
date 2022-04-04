@@ -67,6 +67,7 @@ namespace Tmpl8
             if (GameMenu->GetActiveState() == true)
             {
                 EnemySpawn();
+                PlayerBody->ResetHP();
                 GameMenu->SetActiveState(false);
             }
             break;
@@ -80,14 +81,16 @@ namespace Tmpl8
         }
     }
 
-	// Initialize variables
+    Game::Game()
+    = default;
+
+    // Initialize variables
 	void Game::Init()
 	{
         // Bullet properties
+        // :: Snowflake sprite from https://www.dreamstime.com/stock-illustration-bit-pixel-crystalline-snowflake-eps-vector-each-square-separated-easy-modifications-image47935947 
         BulletSprite = new Sprite(new Surface("assets/snowflake.png"), 1);
         BulletSize = { 25.f, 25.f };
-
-        // Powerup properties
 
         // Bounds
         GameBounds = new Snowy::Bounds(0, 0, ScreenWidth, ScreenHeight);
@@ -103,6 +106,9 @@ namespace Tmpl8
 		PlayerBody->SetPosition(1050, 860);
         PlayerBody->setHitboxDiameter(35.f);
 
+        // HUD
+        CurrentHUD = new Snowy::HUD(PlayerBody, screen);
+			
         // Background Sprite
         Background = new Sprite(new Surface("assets/index.png"), 1);
         
@@ -149,12 +155,19 @@ namespace Tmpl8
             // Draw the background
             Background->Draw(screen, 0, 0);
 
-            // 
+            // Calculate movement and border checks
             Movement(deltaTime);
+
+            // If snowflakes / bullets went offscreen and got erased from bullets vector...: add new ones
             EnemySpawn();
+
+            // Check whether  bullets are offscreen
             DrawBullets(deltaTime);
+
+            // Detect collisions between player and bullets
             CollisionDetection();
 
+            // Render all entities (bullets, player, hearts in HUD etc.)
             RenderEntities();
             std::cout << bullets.size();
         }
@@ -162,25 +175,32 @@ namespace Tmpl8
 
 	void Game::Movement(float deltaTime) const
 	{
+        // Case: user pressed A
         if (movementStates.at("m_left")) 
         {
             PlayerBody->AddToVelocity(-1.f, 0.f);
             PlayerSprite->SetFrame(1);
             // PlayerBody->setDirection(0);
         }
+
+        // Case: user pressed D
         if (movementStates.at("m_right"))
         {
             PlayerBody->AddToVelocity(1.f, 0.f);
             PlayerSprite->SetFrame(0);
             // PlayerBody->setDirection(1);
         }
+
+        // Calculate WOULD BE newPosition (needs to be verified with borders first)
         const vec2 newPosition = PlayerBody->GetPosition() + (PlayerBody->GetVelocity() * deltaTime * movementSpeed);
 
+        // Border / bounds check
         if (newPosition.x > 0.f-20.f && newPosition.x < 1920.f - 50.f)
         {
             PlayerBody->SetPosition(newPosition);
         }
-        
+
+        // Reset velocity for next frame calculation
         PlayerBody->SetVelocity(0.f, 0.f);
 	}
 
@@ -188,9 +208,18 @@ namespace Tmpl8
     {
         for (const Snowy::Bullet& bulletIT : bullets)
         {
-            if (Snowy::detectCollision(bulletIT, *PlayerBody))
+            if (Snowy::detectCollision(bulletIT, *PlayerBody) && PlayerBody->GetHP() == 1)
             {
                 GameMenu->SetActiveState(true);
+                PlayerBody->ResetHP();
+                bullets.clear();
+
+                //shutDown = true;
+            }
+
+            if (Snowy::detectCollision(bulletIT, *PlayerBody))
+            {
+                PlayerBody->LoseHP();
                 bullets.clear();
 
                 //shutDown = true;
@@ -249,10 +278,11 @@ namespace Tmpl8
         {
             auto& bullet = *iter;
             bullet.DrawBody(static_cast<int>(BulletSize.x), static_cast<int>(BulletSize.y), screen);
-            screen->Line(bullet.GetPosition().x + bullet.getHitboxRadius(), bullet.GetPosition().y + bullet.getHitboxRadius(), bullet.GetPosition().x + bullet.getHitboxRadius(), ScreenHeight, 0xFF0000);
+            /*screen->Line(bullet.GetPosition().x + bullet.getHitboxRadius(), bullet.GetPosition().y + bullet.getHitboxRadius(), bullet.GetPosition().x + bullet.getHitboxRadius(), ScreenHeight, 0xFF0000);*/
             ++iter;
         }
 
         PlayerBody->DrawBody(50, 50, screen);
+        CurrentHUD->DrawHearts();
     }
 };

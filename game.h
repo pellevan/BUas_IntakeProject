@@ -9,6 +9,8 @@
 #include <vector>
 #include <iostream>
 
+#include "HUD.h"
+
 namespace Tmpl8 {
 
 class Surface;
@@ -16,6 +18,8 @@ class Sprite;
 class Game
 {
 public:
+	Game();
+
 	void SetTarget( Surface* surface ) { screen = surface; }
 	void Init();
 	void Shutdown() const;
@@ -45,6 +49,8 @@ private:
 	Snowy::Player* PlayerBody = nullptr;
 
 	Snowy::Bounds* GameBounds = nullptr;
+
+	Snowy::HUD* CurrentHUD = nullptr;
 
 	std::map<std::string, int> movementStates =
 	{

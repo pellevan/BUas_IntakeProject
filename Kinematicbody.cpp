@@ -109,9 +109,19 @@ namespace Snowy {
 		this->facingDirection = newDirection;
 	}
 
+	void Player::ResetHP()
+	{
+		HP = 3;
+	}
+
 	void Player::LoseHP()
 	{
 		--HP;
+	}
+
+	int Player::GetHP()
+	{
+		return HP;
 	}
 
 	void Powerup::SetTypeID(int newType)

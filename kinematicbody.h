@@ -94,8 +94,9 @@ namespace Snowy {
 		// Setter for the direction the player is moving
 		void setDirection(int newDirection);
 
+		void ResetHP();
 		void LoseHP();
-
+		int GetHP();
 	private:
 		// Whether the player is alive or not
 		bool isAlive;
