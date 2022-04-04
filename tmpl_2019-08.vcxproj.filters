@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="surface.cpp">
+      <Filter>.Tmpl8\_template code</Filter>
+    </ClCompile>
+    <ClCompile Include="template.cpp">
+      <Filter>.Tmpl8\_template code</Filter>
+    </ClCompile>
+    <ClCompile Include="hitbox.cpp">
+      <Filter>Hitbox</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Kinematicbody.cpp">
+      <Filter>Kinematicbody</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionDetection.cpp">
+      <Filter>CollisionDetection</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Bounds.cpp">
+      <Filter>Bounds</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>HUD</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="surface.h">
+      <Filter>.Tmpl8\_template code</Filter>
+    </ClInclude>
+    <ClInclude Include="template.h">
+      <Filter>.Tmpl8\_template code</Filter>
+    </ClInclude>
+    <ClInclude Include="hitbox.h">
+      <Filter>Hitbox</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="kinematicbody.h">
+      <Filter>Kinematicbody</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionDetection.h">
+      <Filter>CollisionDetection</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Bounds.h">
+      <Filter>Bounds</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>HUD</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Hitbox">
+      <UniqueIdentifier>{47bd9539-6a5e-4015-ae6e-449b51e796e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".Tmpl8">
+      <UniqueIdentifier>{65ef7902-d49c-4579-879c-c8a89061794e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".Tmpl8\_template code">
+      <UniqueIdentifier>{bf32dd6e-4be7-4889-8ac6-49e7ee163c40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{c46efaa8-abfd-4dfe-b6d9-580c18b3c0fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Kinematicbody">
+      <UniqueIdentifier>{f416bd26-4213-48dc-8561-776cedfc0de8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CollisionDetection">
+      <UniqueIdentifier>{faf11104-04c2-4614-ad9f-9f1b42d10bf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{557c4a19-f2b7-416d-93c6-691b96940e7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bounds">
+      <UniqueIdentifier>{88a04177-e1cc-4479-8714-92957a646c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HUD">
+      <UniqueIdentifier>{dacb7582-4d32-465c-a7d0-a30f8afd61d9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="_readme.txt">
+      <Filter>.Tmpl8\_template code</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
