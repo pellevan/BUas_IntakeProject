@@ -1,6 +1,6 @@
 # BUas Game Project by Pelle
 
-A basic bullet hell-esque game created on OpenGL with SDL2 including the FreeImage library.  
+A basic bullet hell-esque game created on OpenGL with SDL2 using the FreeImage library.  
 
 
 ## Features
