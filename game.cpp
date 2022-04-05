@@ -1,6 +1,5 @@
 #include "game.h"
 #include "surface.h"
-#include <cstdio> //printf
 #include <iostream>
 
 #include "Windows.h"
@@ -100,6 +99,7 @@ namespace Tmpl8
         shutDown = false;
 
         // KinematicBodies
+        // :: Penguin sprite from https://media.spelunky.fyi/mods/file/01EQXP6Y72AD3Y7Q079XEFAXJW/01EQXP6Y71DD53R8865H62HY3B/penguin.png
         PlayerSprite = new Sprite(new Surface("assets/penguin.png"), 2);
         PlayerSprite->SetFrame(0);
 		PlayerBody = new Snowy::Player(PlayerSprite);
