@@ -10,6 +10,7 @@
 #include <iostream>
 
 #include "HUD.h"
+#include "Timer.h"
 
 namespace Tmpl8 {
 
@@ -43,6 +44,12 @@ private:
 	// All member variables initialized in Game::Init() or KeyUp() / KeyDown() functions
 	// ---------------------------------------------------------------------------------
 
+	// Self explanatory
+	bool gameOver = false;
+
+	// Timer
+	Snowy::Timer* gameover_timer = nullptr;
+
 	// Screen / window we're drawing on in this game class
 	Surface* screen  = nullptr;
 
@@ -51,6 +58,9 @@ private:
 
 	// The snowy background image
 	Sprite* Background = nullptr;
+
+	// The sprite for the game over screen
+	Sprite* GameOverImage = nullptr;
 
 	// Menu object of the main menu
 	Snowy::Menu* GameMenu = nullptr;
@@ -88,9 +98,6 @@ private:
 	int difficultyBallAmount = 50; 
 	int difficultyBallSpeed_Min = 100;
 	int difficultyBallSpeed_Max = 150;
-
-	// Self explanatory
-	bool gameOver = false;
 };
 
 }; // namespace Tmpl8

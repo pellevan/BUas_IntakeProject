@@ -111,6 +111,9 @@ namespace Tmpl8
 			
         // Background Sprite
         Background = new Sprite(new Surface("assets/index.png"), 1);
+
+        // Game over sprite
+        GameOverImage = new Sprite(new Surface("assets/gameover.png"), 1);
         
         // Menu
         GameMenu = new Snowy::Menu(new Sprite(new Surface("assets/menu.png"),1));
@@ -118,7 +121,8 @@ namespace Tmpl8
         // Windows properties
 		ShowCursor(false);
 
-        // Initialize first bullets
+        // Initialize game over timer
+        gameover_timer = new Snowy::Timer(0.0);
 	}
 	
 	// Shutdown destructors
@@ -142,12 +146,21 @@ namespace Tmpl8
 	// Update function
 	void Game::Tick(float deltaTime)
 	{
+        // If the player has lost the game, show the gameover screen for 3 second and then return to main menu
+        if (GameMenu->GetActiveState() && gameOver)
+        {
+            if (gameover_timer->elapsed_sec() > 3.0) gameOver = false;
+            GameOverImage->Draw(screen, 0, 0);
+        }
+
         // Check whether the Menu of Game is active
-        if (GameMenu->GetActiveState() == true) // Menu active (if)
+        else if (GameMenu->GetActiveState() == true)
         {
             GameMenu->DrawOnScreen(screen);
         }
-        else                                    // Game active (else)
+
+        // If the menu isn't active (anymore), start the game loop
+        else 
         {
             // Clear the buffer
             screen->Clear(0);
@@ -212,6 +225,8 @@ namespace Tmpl8
             {
                 GameMenu->SetActiveState(true);
                 PlayerBody->ResetHP();
+                gameOver = true;
+                gameover_timer->reset();
                 bullets.clear();
 
                 //shutDown = true;
