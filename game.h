@@ -40,18 +40,31 @@ public:
 
 	bool shutDown = false;
 private:
+	// All member variables initialized in Game::Init() or KeyUp() / KeyDown() functions
+	// ---------------------------------------------------------------------------------
+
+	// Screen / window we're drawing on in this game class
 	Surface* screen  = nullptr;
+
+	// The sprite of the penguin/player (controllable)
 	Sprite* PlayerSprite = nullptr;
-	
+
+	// The snowy background image
 	Sprite* Background = nullptr;
+
+	// Menu object of the main menu
 	Snowy::Menu* GameMenu = nullptr;
 
+	// The kinematicbody2D of the player
 	Snowy::Player* PlayerBody = nullptr;
 
+	// Bounds object for the current bounds of the game
 	Snowy::Bounds* GameBounds = nullptr;
 
+	// HUD object for the game (health bar)
 	Snowy::HUD* CurrentHUD = nullptr;
 
+	// Map for the state of button presses (only WASD)
 	std::map<std::string, int> movementStates =
 	{
 		{"m_up", 0},
@@ -60,17 +73,23 @@ private:
 		{"m_right", 0}
 	};
 
-	// Bullet properties
+	// The sprite of the snowflake/bullet
 	Sprite* BulletSprite = nullptr;
+
+	// Size of the bullets (x,y)
 	vec2 BulletSize = {};
 
+	// Vector / array object for the current snowflakes/bullets on the screen
 	std::vector<Snowy::Bullet> bullets = {};
 
+	// Difficulty settings
+	// -------------------
 	const float movementSpeed = 5e2f;
 	int difficultyBallAmount = 50; 
 	int difficultyBallSpeed_Min = 100;
 	int difficultyBallSpeed_Max = 150;
 
+	// Self explanatory
 	bool gameOver = false;
 };
 

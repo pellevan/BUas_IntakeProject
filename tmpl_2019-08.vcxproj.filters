@@ -28,6 +28,9 @@
     <ClCompile Include="HUD.cpp">
       <Filter>HUD</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Timer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="surface.h">
@@ -57,6 +60,9 @@
     <ClInclude Include="HUD.h">
       <Filter>HUD</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Timer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Hitbox">
@@ -85,6 +91,9 @@
     </Filter>
     <Filter Include="HUD">
       <UniqueIdentifier>{dacb7582-4d32-465c-a7d0-a30f8afd61d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Timer">
+      <UniqueIdentifier>{26c7dd8b-733a-41ba-93ca-49bb09c65b46}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

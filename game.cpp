@@ -195,7 +195,7 @@ namespace Tmpl8
         const vec2 newPosition = PlayerBody->GetPosition() + (PlayerBody->GetVelocity() * deltaTime * movementSpeed);
 
         // Border / bounds check
-        if (newPosition.x > 0.f-20.f && newPosition.x < 1920.f - 50.f)
+        if (newPosition.x > GameBounds->GetBounds().at("left") - 20.f && newPosition.x < GameBounds->GetBounds().at("right") - 50.f)
         {
             PlayerBody->SetPosition(newPosition);
         }
