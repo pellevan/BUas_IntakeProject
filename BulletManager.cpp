@@ -43,7 +43,7 @@ namespace Snowy
 
     bool BulletManager::DetectCollisions(Kinematicbody playerBody) const
     {
-        if(!bulletArray.empty())
+        if (bulletArray.size() != 0)
         {
             for (const Snowy::Kinematicbody& bulletIT : bulletArray)
             {

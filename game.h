@@ -33,7 +33,7 @@ public:
 	void KeyDown(const SDL_Scancode key);
 
 	void Movement(float deltaTime) const;
-	void CollisionDetection();
+	void CollisionDetection(const Snowy::BulletManager* activeManager);
 	void BorderCheckBullets(float deltaTime);
 
 	void EnemySpawn();
@@ -95,6 +95,8 @@ private:
 
 	// Bullet managers
 	Snowy::BulletManager* snowballManager = nullptr;
+
+	Snowy::BulletManager* fireballManager = nullptr;
 
 	// Vector / array object for the current snowflakes/bullets on the screen
 	std::vector<Snowy::Bullet> bullets = {};

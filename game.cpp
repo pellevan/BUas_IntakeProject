@@ -124,6 +124,7 @@ namespace Tmpl8
 
         // Bullet managers
         snowballManager = new Snowy::BulletManager(BulletSprite, difficultyBallAmount, difficultyBallSpeed_Min, difficultyBallSpeed_Max);
+        fireballManager = new Snowy::BulletManager(FireballSprite, 5, difficultyBallSpeed_Min + 150, difficultyBallSpeed_Max + 150);
 
         // Windows properties
 		ShowCursor(false);
@@ -178,14 +179,15 @@ namespace Tmpl8
             // Calculate movement and border checks
             Movement(deltaTime);
 
-            // Spawn new bullets
-            EnemySpawn();
-
             // Check whether  bullets are offscreen
             BorderCheckBullets(deltaTime);
 
             // Detect collisions between player and bullets
-            CollisionDetection();
+            CollisionDetection(snowballManager);
+            CollisionDetection(fireballManager);
+
+            // Spawn new bullets
+            EnemySpawn();
 
             // Render all entities (bullets, player, hearts in HUD etc.)
             RenderEntities();
@@ -223,9 +225,9 @@ namespace Tmpl8
         PlayerBody->SetVelocity(0.f, 0.f);
 	}
 
-    void Game::CollisionDetection()
+    void Game::CollisionDetection(const Snowy::BulletManager* activeManager)
     {
-        if (snowballManager->DetectCollisions(*PlayerBody) && PlayerBody->GetHP() == 1)
+        if (activeManager->DetectCollisions(*PlayerBody) && PlayerBody->GetHP() == 1)
         {
             GameMenu->SetActiveState(true);
             PlayerBody->ResetHP();
@@ -233,61 +235,34 @@ namespace Tmpl8
             gameover_timer->reset();
 
             snowballManager->ClearArray();
-            uniqueBullets.clear();
+            fireballManager->ClearArray();
         }
 
-        else if (snowballManager->DetectCollisions(*PlayerBody))
+        else if (activeManager->DetectCollisions(*PlayerBody))
         {
             PlayerBody->LoseHP();
+
             snowballManager->ClearArray();
-            uniqueBullets.clear();
+            fireballManager->ClearArray();
         }
+
     }
 
     void Game::BorderCheckBullets(float deltaTime)
     {
         snowballManager->BorderCheck(deltaTime);
-
-        for (auto iter = uniqueBullets.begin(); iter != uniqueBullets.end(); )
-        {
-            auto& bullet = *iter;
-            bullet.SetPosition(bullet.GetPosition() + bullet.GetVelocity() * deltaTime);
-            if (bullet.GetPosition().x > 0 &&
-                bullet.GetPosition().x < ScreenWidth - 25 &&
-                bullet.GetPosition().y > 0 &&
-                bullet.GetPosition().y < ScreenHeight - 25)
-            {
-                ++iter;
-            }
-            else
-            {
-                iter = uniqueBullets.erase(iter);
-            }
-        }
+        fireballManager->BorderCheck(deltaTime);
     }
 
     void Game::EnemySpawn()
     {
         snowballManager->SpawnBullets();
-
-        if (IRand(100) == 1)
-        {
-            uniqueBullets.emplace_back(FireballSprite, 1);
-            uniqueBullets[uniqueBullets.size() - 1].SetPosition(static_cast<float>(IRand(ScreenWidth - 50)), static_cast<float>(IRand(300)));
-            uniqueBullets[uniqueBullets.size() - 1].SetVelocity(0.f, static_cast<float>(rand() % difficultyBallSpeed_Min + difficultyBallSpeed_Max));
-        }
+        fireballManager->SpawnBullets();
     }
     void Game::RenderEntities()
     {
         snowballManager->DrawBullets(screen);
-
-        for (auto iter = uniqueBullets.begin(); iter != uniqueBullets.end(); )
-        {
-            auto& bullet = *iter;
-            bullet.DrawBody(static_cast<int>(BulletSize.x), static_cast<int>(BulletSize.y), screen);
-            /*screen->Line(bullet.GetPosition().x + bullet.getHitboxRadius(), bullet.GetPosition().y + bullet.getHitboxRadius(), bullet.GetPosition().x + bullet.getHitboxRadius(), ScreenHeight, 0xFF0000);*/
-            ++iter;
-        }
+        fireballManager->DrawBullets(screen);
 
         PlayerBody->DrawBody(50, 50, screen);
         CurrentHUD->DrawHearts();
