@@ -11,6 +11,7 @@
 
 #include "HUD.h"
 #include "Timer.h"
+#include "BulletManager.h"
 
 namespace Tmpl8 {
 
@@ -33,7 +34,7 @@ public:
 
 	void Movement(float deltaTime) const;
 	void CollisionDetection();
-	void DrawBullets(float deltaTime);
+	void BorderCheckBullets(float deltaTime);
 
 	void EnemySpawn();
 
@@ -91,6 +92,9 @@ private:
 
 	// The sprite of the fireball bullet
 	Sprite* FireballSprite = nullptr;
+
+	// Bullet managers
+	Snowy::BulletManager* snowballManager = nullptr;
 
 	// Vector / array object for the current snowflakes/bullets on the screen
 	std::vector<Snowy::Bullet> bullets = {};
