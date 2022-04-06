@@ -10,7 +10,7 @@ namespace Snowy
 
 	double Timer::elapsed_ms() const
 	{
-		return std::chrono::duration_cast<timevalue_ms>(clock::now() - startTime).count();
+		return static_cast<double>(std::chrono::duration_cast<timevalue_ms>(clock::now() - startTime).count());
 	}
 
 	double Timer::elapsed_sec() const

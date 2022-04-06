@@ -118,23 +118,23 @@ namespace Snowy {
 		}
 	};
 
-	class Powerup : public Kinematicbody
+	class UniqueBullets : public Kinematicbody
 	{
 	public:
 		// Constructor of a Powerup objects
-		Powerup(Tmpl8::Sprite* addSprite, int type, float xPos = 0.f, float yPos = 0.f) : Kinematicbody(addSprite, xPos, yPos),
+		UniqueBullets(Tmpl8::Sprite* addSprite, int type, float xPos = 0.f, float yPos = 0.f) : Kinematicbody(addSprite, xPos, yPos),
 			typeID(type)
 		{
 			switch(typeID)
 			{
-			case 0:  // NOLINT(bugprone-branch-clone)
+			case 0:
 				typeName = "Shield";
 				break;
 			case 1:
-				typeName = "";
+				typeName = "Fireball";
 				break;
 			case 2:
-				typeName = "";
+				typeName = "Heart";
 				break;
 			default:
 				break;

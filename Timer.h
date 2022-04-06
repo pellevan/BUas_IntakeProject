@@ -9,6 +9,7 @@ namespace Snowy
 	public:
 		Timer(double wait_time_sec) : startTime(std::chrono::high_resolution_clock::now()), wait_time_sec(wait_time_sec) {}
 
+		// Reset the timer
 		void reset(); 
 
 		double elapsed_ms() const;

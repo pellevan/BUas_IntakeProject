@@ -1,7 +1,7 @@
 #include "CollisionDetection.h"
 
 namespace Snowy {
-    bool detectCollision(Bullet bullet, Kinematicbody playerBody)
+    bool detectCollision(Kinematicbody bullet, Kinematicbody playerBody)
     {
         // Calculate distance distance between bullet and player
         const float distanceCircles = 

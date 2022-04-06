@@ -89,13 +89,18 @@ private:
 	// Size of the bullets (x,y)
 	vec2 BulletSize = {};
 
+	// The sprite of the fireball bullet
+	Sprite* FireballSprite = nullptr;
+
 	// Vector / array object for the current snowflakes/bullets on the screen
 	std::vector<Snowy::Bullet> bullets = {};
+
+	std::vector<Snowy::UniqueBullets> uniqueBullets = {};
 
 	// Difficulty settings
 	// -------------------
 	const float movementSpeed = 5e2f;
-	int difficultyBallAmount = 50; 
+	int difficultyBallAmount = 120; 
 	int difficultyBallSpeed_Min = 100;
 	int difficultyBallSpeed_Max = 150;
 };

@@ -91,6 +91,10 @@ namespace Tmpl8
         BulletSprite = new Sprite(new Surface("assets/snowflake.png"), 1);
         BulletSize = { 25.f, 25.f };
 
+        // Fireball bullets properties
+        // :: Sprite from https://www.wattpad.com/530348816-sandbox-pixel-art-fireball
+        FireballSprite = new Sprite(new Surface("assets/fireball2.png"), 1);
+
         // Bounds
         GameBounds = new Snowy::Bounds(0, 0, ScreenWidth, ScreenHeight);
         
@@ -171,7 +175,7 @@ namespace Tmpl8
             // Calculate movement and border checks
             Movement(deltaTime);
 
-            // If snowflakes / bullets went offscreen and got erased from bullets vector...: add new ones
+            // Spawn new bullets
             EnemySpawn();
 
             // Check whether  bullets are offscreen
@@ -182,7 +186,6 @@ namespace Tmpl8
 
             // Render all entities (bullets, player, hearts in HUD etc.)
             RenderEntities();
-            std::cout << bullets.size();
         }
     }
 
@@ -219,6 +222,7 @@ namespace Tmpl8
 
     void Game::CollisionDetection()
     {
+        // Collision detections between bullets and PlayerBody
         for (const Snowy::Bullet& bulletIT : bullets)
         {
             if (Snowy::detectCollision(bulletIT, *PlayerBody) && PlayerBody->GetHP() == 1)
@@ -227,7 +231,9 @@ namespace Tmpl8
                 PlayerBody->ResetHP();
                 gameOver = true;
                 gameover_timer->reset();
+
                 bullets.clear();
+                uniqueBullets.clear();
 
                 //shutDown = true;
             }
@@ -236,10 +242,13 @@ namespace Tmpl8
             {
                 PlayerBody->LoseHP();
                 bullets.clear();
+                uniqueBullets.clear();
 
                 //shutDown = true;
             }
         }
+
+        // Collision detections betweens Uniquebullets and PlayerBody
     }
 
     void Game::DrawBullets(float deltaTime)
@@ -276,6 +285,23 @@ namespace Tmpl8
                 iter = bullets.erase(iter);
             }
         }
+
+        for (auto iter = uniqueBullets.begin(); iter != uniqueBullets.end(); )
+        {
+            auto& bullet = *iter;
+            bullet.SetPosition(bullet.GetPosition() + bullet.GetVelocity() * deltaTime);
+            if (bullet.GetPosition().x > 0 &&
+                bullet.GetPosition().x < ScreenWidth - 25 &&
+                bullet.GetPosition().y > 0 &&
+                bullet.GetPosition().y < ScreenHeight - 25)
+            {
+                ++iter;
+            }
+            else
+            {
+                iter = uniqueBullets.erase(iter);
+            }
+        }
     }
 
     void Game::EnemySpawn()
@@ -286,10 +312,25 @@ namespace Tmpl8
             bullets[bullets.size()-1].SetPosition(static_cast<float>(IRand(ScreenWidth - 50)), static_cast<float>(IRand(300)));
             bullets[bullets.size()-1].SetVelocity(0.f, static_cast<float>(rand() % difficultyBallSpeed_Min + difficultyBallSpeed_Max));
         }
+
+        if (IRand(100) == 1)
+        {
+            uniqueBullets.emplace_back(FireballSprite, 1);
+            uniqueBullets[uniqueBullets.size() - 1].SetPosition(static_cast<float>(IRand(ScreenWidth - 50)), static_cast<float>(IRand(300)));
+            uniqueBullets[uniqueBullets.size() - 1].SetVelocity(0.f, static_cast<float>(rand() % difficultyBallSpeed_Min + difficultyBallSpeed_Max));
+        }
     }
     void Game::RenderEntities()
     {
         for (auto iter = bullets.begin(); iter != bullets.end(); )
+        {
+            auto& bullet = *iter;
+            bullet.DrawBody(static_cast<int>(BulletSize.x), static_cast<int>(BulletSize.y), screen);
+            /*screen->Line(bullet.GetPosition().x + bullet.getHitboxRadius(), bullet.GetPosition().y + bullet.getHitboxRadius(), bullet.GetPosition().x + bullet.getHitboxRadius(), ScreenHeight, 0xFF0000);*/
+            ++iter;
+        }
+
+        for (auto iter = uniqueBullets.begin(); iter != uniqueBullets.end(); )
         {
             auto& bullet = *iter;
             bullet.DrawBody(static_cast<int>(BulletSize.x), static_cast<int>(BulletSize.y), screen);

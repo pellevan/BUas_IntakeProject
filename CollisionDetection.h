@@ -3,7 +3,6 @@
 #include "kinematicbody.h"
 
 namespace Snowy {
-		bool detectCollision(Bullet bullet, Kinematicbody playerBody);
-
+		bool detectCollision(Kinematicbody bullet, Kinematicbody playerBody);
 }
 

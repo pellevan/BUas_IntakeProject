@@ -223,6 +223,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bounds.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="hitbox.cpp" />
@@ -235,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bounds.h" />
+    <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="hitbox.h" />

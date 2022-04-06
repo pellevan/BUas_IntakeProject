@@ -124,7 +124,7 @@ namespace Snowy {
 		return HP;
 	}
 
-	void Powerup::SetTypeID(int newType)
+	void UniqueBullets::SetTypeID(int newType)
 	{
 		typeID = newType;
 	}
