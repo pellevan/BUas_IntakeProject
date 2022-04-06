@@ -231,6 +231,9 @@ namespace Tmpl8
             PlayerBody->ResetHP();
             gameOver = true;
             gameover_timer->reset();
+
+            snowballManager->ClearArray();
+            uniqueBullets.clear();
         }
 
         else if (snowballManager->DetectCollisions(*PlayerBody))

@@ -43,12 +43,18 @@ namespace Snowy
 
     bool BulletManager::DetectCollisions(Kinematicbody playerBody) const
     {
-        for (const Snowy::Kinematicbody& bulletIT : bulletArray)
+        if(!bulletArray.empty())
         {
-            if (Snowy::detectCollision(bulletIT, playerBody)) return true;
-        }
+            for (const Snowy::Kinematicbody& bulletIT : bulletArray)
+            {
+                if (Snowy::detectCollision(bulletIT, playerBody))
+                {
+                    return true;
+                }
+            }
 
-        return false;
+            return false;
+        }
     }
 
     void BulletManager::DrawBullets(Tmpl8::Surface* screen)
